@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 const routes = [
   { path: "/", name: "Home", component: () => import("@/pages/Home.vue") },
   {
-    path: "/add-service",
+    path: "/add-card",
     name: "AddCard",
     component: () => import("@/pages/AddCard.vue"),
   },
@@ -16,6 +16,10 @@ const routes = [
     path: "/sign-up",
     name: "SignUp",
     component: () => import("@/pages/SignUp.vue"),
+  },
+  {
+    path: "*",
+    redirect: "/",
   },
 ];
 
