@@ -1,36 +1,36 @@
 <template>
   <div>
-    <h1>Sign In</h1>
+    <h1>Sign Un</h1>
     <div class="container">
       <div class="row">
         <div class="col-4 offset-4">
-          <form>
+          <form @submit.prevent="handleSubmit">
             <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
+              <label for="email">Email address</label>
               <input
+                v-model="email"
                 type="email"
-                class="form-control"
-                id="exampleInputEmail1"
+                class="form-control valid"
+                id="email"
                 aria-describedby="emailHelp"
               />
-              <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-              >
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Name</label>
+              <label for="name">Name</label>
               <input
+                v-model="name"
                 type="text"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="name"
               />
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
+              <label for="password">Password</label>
               <input
+                v-model="password"
                 type="password"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="password"
               />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -42,6 +42,24 @@
 </template>
 <script>
 export default {
-  name: "Sign Up",
+  name: "SignUp",
+  data() {
+    return {
+      email: "",
+      password: "",
+      name: "",
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        const { email, name, password } = this;
+        await this.$store.dispatch("register", { email, name, password });
+        this.$router.push("/sign-in");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
 </script>

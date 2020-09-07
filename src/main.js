@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App.vue";
+
+import store from "./store";
 import router from "./router";
 
 import firebase from "firebase/app";
@@ -24,18 +26,13 @@ firebase.initializeApp({
 
 new Vue({
   router,
+  store,
   mounted() {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         // this.$store.dispatch("setUser", { email: user.email, uid: user.uid });
         // this.$store.dispatch("fetchInfo", user.uid);
-        console.log();
-        console.log(
-          await firebase
-            .database()
-            .ref("/users/" + user.uid)
-            .once("value")
-        );
+        console.log(user.providerData[0]);
       }
     });
   },
