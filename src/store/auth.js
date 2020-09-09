@@ -4,19 +4,17 @@ export default {
     user: {},
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    setUser(state, user) {
+      state.user = user;
+    },
+  },
   actions: {
-    async register({ commit }, { email, name, password }) {
+    async register({ commit }, { email, password }) {
       console.log(commit);
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       const user = await firebase.auth().currentUser;
-      if (user) {
-        await firebase.database().ref(`/user/${user.uid}/info`).set({
-          uid: user.uid,
-          name,
-          email,
-        });
-      }
+      commit("setUser", user);
     },
   },
 };
