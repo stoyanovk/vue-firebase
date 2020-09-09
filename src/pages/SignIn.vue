@@ -45,6 +45,6 @@
 
 <script>
 export default {
-  name: "Sign In",
+  name: "SignIn",
 };
 </script>
