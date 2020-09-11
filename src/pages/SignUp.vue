@@ -13,7 +13,7 @@
                 class="form-control"
                 id="email"
                 aria-describedby="emailHelp"
-                @blur="handleBlur"
+                @blur="handleCheckEmail"
               />
             </div>
             <div class="form-group">
@@ -23,6 +23,7 @@
                 type="password"
                 class="form-control"
                 id="password"
+                @blur="handleCheckcheckPassword"
               />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-// import { isEmail, isEmpty } from "validator";
+import { isEmail, isEmpty } from "validator";
 
 export default {
   name: "SignUp",
@@ -44,7 +45,6 @@ export default {
       errors: [],
     };
   },
-
   methods: {
     async handleSubmit() {
       try {
@@ -58,7 +58,12 @@ export default {
         console.log(e);
       }
     },
-    handleBlur(e) {
+    handleCheckEmail(e) {
+      if (!isEmail(e.target.value)) {
+        this.errors.push(e.target.name);
+      }
+    },
+    handleCheckcheckPassword(e) {
       console.log(e);
     },
   },
